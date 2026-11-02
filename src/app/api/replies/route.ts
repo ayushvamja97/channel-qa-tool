@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     const trimmedBody = body.trim();
 
-    if (trimmedBody.length < 2) {
+    if (trimmedBody.length < 2 || trimmedBody.length > 10000) {
       if (isFormSubmission && postId) {
         return NextResponse.redirect(
           new URL(`/posts/${postId}`, request.url),
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json(
-        { error: "Reply body must be at least 2 characters." },
+        { error: "Reply body must be 2–10,000 characters." },
         { status: 400 }
       );
     }

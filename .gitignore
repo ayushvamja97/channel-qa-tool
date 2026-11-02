@@ -47,3 +47,12 @@ next-env.d.ts
 
 # Local editor backups
 *.bak
+
+
+# Public configuration template
+!.env.example
+/uploads/
+/vision/.venv/
+/vision/models/
+/vision/data/
+**/__pycache__/

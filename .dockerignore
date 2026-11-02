@@ -8,3 +8,7 @@ reports
 uploads
 coverage
 *.log
+
+
+vision
+tests

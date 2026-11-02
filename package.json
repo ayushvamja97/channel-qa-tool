@@ -7,12 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "node --import tsx prisma/seed.ts",
+    "seed:demo": "node --import tsx prisma/demo.ts",
+    "ai:index": "node --import tsx scripts/index-posts.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "ai:evaluate": "node --import tsx scripts/evaluate-retrieval.ts",
+    "test:integration": "node --import tsx tests/database.integration.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^3.0.3",
     "cookie": "^1.1.1",
+    "dotenv": "^16.6.1",
     "formidable": "^3.5.4",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.20.0",
