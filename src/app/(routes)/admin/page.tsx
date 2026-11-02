@@ -18,7 +18,7 @@ export default async function AdminPage() {
       <main className="min-h-screen bg-slate-950 text-white">
         <div className="mx-auto max-w-5xl px-6 py-12">
           <Link href="/" className="text-sm text-blue-400 hover:text-blue-300">
-            â† Back to home
+            ← Back to home
           </Link>
 
           <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-6">
@@ -100,7 +100,7 @@ export default async function AdminPage() {
     <main className="min-h-screen bg-slate-950 text-white">
       <div className="mx-auto max-w-6xl px-6 py-12">
         <Link href="/" className="text-sm text-blue-400 hover:text-blue-300">
-          â† Back to home
+          ← Back to home
         </Link>
 
         <h1 className="mt-4 text-3xl font-bold">Admin Panel</h1>
@@ -159,7 +159,7 @@ export default async function AdminPage() {
                       {item.description || "No description"}
                     </p>
                     <p className="text-sm text-slate-500">
-                      By {item.creator.displayName} â€¢ {item._count.posts} posts
+                      By {item.creator.displayName} • {item._count.posts} posts
                     </p>
                   </div>
 
@@ -193,7 +193,7 @@ export default async function AdminPage() {
                       {item.body}
                     </p>
                     <p className="text-sm text-slate-500">
-                      #{item.channel.name} â€¢ By {item.author.displayName} â€¢{" "}
+                      #{item.channel.name} • By {item.author.displayName} •{" "}
                       {item._count.replies} replies
                     </p>
                   </div>
@@ -225,7 +225,7 @@ export default async function AdminPage() {
                   <div>
                     <p className="text-slate-300 line-clamp-3">{item.body}</p>
                     <p className="text-sm text-slate-500">
-                      By {item.author.displayName} â€¢ Post #{item.post.id}:{" "}
+                      By {item.author.displayName} • Post #{item.post.id}:{" "}
                       {item.post.title}
                     </p>
                   </div>

@@ -159,16 +159,19 @@ Additional fictional accounts are demo1@example.com through demo18@example.com, 
 
 ### Screenshots
 
-**Actual application captures pending.** Images in prisma/demo-images are visibly labeled synthetic fixtures, not application screenshots or a classifier training dataset.
+These are real browser captures of the local seeded app. Question review is shown before generation; text AI was disabled during capture. The CNN result is actual inference, while the image attached to the discussion is a visibly labeled synthetic fixture.
 
-| Capture placeholder | Show |
+![Question composer with optional AI controls](docs/screenshots/question-assistant.jpg)
+
+![Actual CNN visual-neighbor result](docs/screenshots/cnn-image-search.jpg)
+
+| Additional capture | Shows |
 | --- | --- |
-| docs/screenshots/question-assistant.png | Question review and related discussions |
-| docs/screenshots/discussion-summary.png | Nested replies, votes, source-linked summary |
-| docs/screenshots/cnn-image-search.png | Analyzed upload and visual-neighbor links |
-| docs/screenshots/admin.png | Moderation with fictional data |
+| [Channels](docs/screenshots/channels.jpg) | Public topic browsing |
+| [Discussion](docs/screenshots/discussion.jpg) | Replies, voting, and summary controls |
+| [Administration](docs/screenshots/admin.jpg) | Moderation with fictional accounts |
 
-Add real captures after reviewing the running app; hide personal information and secrets.
+A generated-summary screenshot remains pending a configured provider and review of actual output. No model output was fabricated for these captures. See the [capture instructions](docs/AI_FEATURES.md#reproduce-the-browser-captures).
 
 ## Testing
 
@@ -179,9 +182,9 @@ npx tsc --noEmit
 npm run build
 ```
 
-For database integration, point DATABASE_URL at a **fresh disposable database ending in _test**, set ALLOW_TEST_DATABASE=true, then run `npm run test:integration`. It applies migrations and writes fixtures/test data. Python tests and an opt-in real-provider retrieval evaluation are described in the [AI guide](docs/AI_FEATURES.md). CI configuration targets MySQL 8.4 and CPU CNN tests; verify a remote run before claiming passing CI.
+For database integration, point DATABASE_URL at a **fresh disposable database ending in _test**, set ALLOW_TEST_DATABASE=true, then run `npm run test:integration`. It applies migrations and writes fixtures/test data. Python tests and an opt-in real-provider retrieval evaluation are described in the [AI guide](docs/AI_FEATURES.md). The application/MySQL 8.4 and CPU CNN jobs passed in [GitHub Actions run 41507850589](https://github.com/ayushvamja97/channel-qa-tool/actions/runs/41507850589). A separate Docker smoke job now checks the combined app/database/vision startup; its result must be checked separately.
 
-Local validation passed: production build, TypeScript, schema validation, seven Node boundary tests, and five real pretrained-CNN service tests. Integration passed against MariaDB 10.11: migrations, exact seed counts, repeat seeding/password preservation, content writes, reply-parent checks, vote toggles, retrieval and summaries with a mocked text provider, plus real CNN HTTP inference through the app route with persisted vectors. Docker Compose/MySQL 8.4 startup and paid text-provider output quality remain separate checks.
+Local validation passed: production build, TypeScript, schema validation, seven Node boundary tests, and five real pretrained-CNN service tests. Integration passed against MariaDB 10.11: migrations, exact seed counts, repeat seeding/password preservation, content writes, reply-parent checks, vote toggles, retrieval and summaries with a mocked text provider, plus real CNN HTTP inference through the app route with persisted vectors. Remote MySQL 8.4 integration also passed. Full Docker Compose startup and paid text-provider output quality are checked separately. Real Chromium UI checks passed for login, draft controls, disabled-AI feedback, discussion rendering, and CNN results.
 
 ## Limitations and next work
 
@@ -213,5 +216,5 @@ Confirm individual contributions, collaborators, course context, and assistance/
 | tests, .github/workflows | Boundary tests, database integration, CI configuration |
 | docker-compose*.yml | Base app/database and optional AI overlay |
 
-Before sharing: approve the reflection/attribution, add actual screenshots, verify any hosted demo URL/access policy, and choose a license before making a reuse claim. No license file is currently tracked.
+Before sharing: approve the reflection/attribution, review the included captures, verify any hosted demo URL/access policy, and choose a license before making a reuse claim. No license file is currently tracked.
 

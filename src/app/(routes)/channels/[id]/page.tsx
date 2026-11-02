@@ -58,7 +58,7 @@ export default async function ChannelPage({
           href="/channels"
           className="text-sm text-blue-400 hover:text-blue-300"
         >
-          Ã¢â€ Â Back to channels
+          ← Back to channels
         </Link>
 
         <h1 className="mt-4 text-3xl font-bold">#{channel.name}</h1>
@@ -110,8 +110,8 @@ export default async function ChannelPage({
                   <p className="mt-2 text-slate-300">{post.body}</p>
 
                   <div className="mt-4 text-sm text-slate-400">
-                    By {post.author.displayName} Ã¢â‚¬Â¢ {post._count.replies} replies
-                    {" Ã¢â‚¬Â¢ "}
+                    By {post.author.displayName} • {post._count.replies} replies
+                    {" • "}
                     {post._count.votes} votes
                   </div>
                 </Link>

@@ -50,3 +50,27 @@ jobs:
       - run: pip install -r vision/requirements-dev.txt
       - run: python -m unittest -v test_app.py
         working-directory: vision
+  docker-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MYSQL_ROOT_PASSWORD: synthetic-compose-db-password
+      JWT_SECRET: synthetic-compose-jwt-secret-at-least-32-characters
+      SEED_ADMIN_PASSWORD: synthetic-compose-admin-password
+      SEED_USER_PASSWORD: synthetic-compose-user-password
+      SEED_DEMO_DATA: 'true'
+      AI_ENABLED: 'false'
+      VISION_SERVICE_TOKEN: synthetic-compose-vision-service-token
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: docker compose -f docker-compose.yml -f docker-compose.ai.yml up --build -d
+      - run: node scripts/docker-smoke.mjs
+      - name: Container logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.yml -f docker-compose.ai.yml logs --no-color
+      - name: Remove disposable containers and volumes
+        if: always()
+        run: docker compose -f docker-compose.yml -f docker-compose.ai.yml down -v

@@ -143,3 +143,23 @@ Confirm your own contribution and assistance attribution. Do not claim to have t
 - [Torchvision MobileNetV3 Small weights/transforms](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.mobilenet_v3_small.html)
 
 Published ImageNet accuracy is not screenshot-category accuracy and is not claimed for this application.
+
+
+## Reproduce the browser captures
+
+These are optional maintainer tools; Playwright is not an application runtime dependency. Install it locally without changing the manifest/lockfile, then install Chromium:
+
+```bash
+npm install --no-save --package-lock=false playwright
+npx playwright install chromium
+```
+
+Run the seeded application and optional vision service, configure the existing local seed-account passwords in the process environment or .env, and run:
+
+```bash
+node scripts/capture-demo.mjs
+```
+
+The script only logs into localhost/127.0.0.1 and writes JPEGs under docs/screenshots. It uses actual UI interactions and never intercepts provider responses or invents generated output. With AI_ENABLED=false it checks the explicit unavailable message; with vision URL/token configured it captures actual CNN output. SEED_ADMIN_PASSWORD enables the optional admin capture. Keep text AI disabled to reproduce the included pre-generation screenshot without provider charges.
+
+The combined Docker smoke check is `node scripts/docker-smoke.mjs` after the AI Compose overlay starts, with SEED_USER_PASSWORD in the shell environment. Run it against a disposable seeded demo with text AI disabled and no category checkpoint; it verifies login, image retrieval, actual CNN analysis, and the unavailable-text-provider path.

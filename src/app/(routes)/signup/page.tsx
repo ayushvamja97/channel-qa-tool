@@ -8,7 +8,7 @@ export default function SignupPage() {
             href="/"
             className="text-sm text-blue-400 hover:text-blue-300"
           >
-            â† Back to home
+            ← Back to home
           </Link>
 
           <h1 className="mt-4 text-3xl font-bold">Sign Up</h1>
