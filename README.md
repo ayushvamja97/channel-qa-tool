@@ -200,10 +200,6 @@ Local validation passed: production build, TypeScript, schema validation, seven 
 
 The implementation connects server-rendered UI, HTTP handlers, accounts, relational persistence, recursive replies, vote constraints, container orchestration, structured AI outputs, semantic retrieval, and a separate CNN feature service.
 
-**Author reflection draft — confirm before using:** “I learned how to connect a full-stack application to optional AI services while keeping its core workflow independent of model availability. I implemented persistent text/image embeddings, validated structured responses and source IDs, and added repeatable demo data and integration tests. I also learned why pretrained CNN features differ from a task-specific classifier and why quality needs a held-out evaluation.”
-
-Confirm individual contributions, collaborators, course context, and assistance/tool attribution before using first-person wording. The CNN feature uses pretrained weights; no trained screenshot-category checkpoint is bundled.
-
 ## Project map
 
 | Path | Responsibility |
@@ -216,5 +212,6 @@ Confirm individual contributions, collaborators, course context, and assistance/
 | tests, .github/workflows | Boundary tests, database integration, CI configuration |
 | docker-compose*.yml | Base app/database and optional AI overlay |
 
-Before sharing: approve the reflection/attribution, review the included captures, verify any hosted demo URL/access policy, and choose a license before making a reuse claim. No license file is currently tracked.
+## License
 
+[MIT](LICENSE). Third-party dependencies and pretrained models retain their own licenses.
