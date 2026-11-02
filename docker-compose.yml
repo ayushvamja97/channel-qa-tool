@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: channel_qa_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: channel_qa_tool
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$${MYSQL_ROOT_PASSWORD}\" mysqladmin ping -h localhost -u root"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: channel_qa_app
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "mysql://root:${MYSQL_ROOT_PASSWORD}@db:3306/channel_qa_tool"
+      JWT_SECRET: ${JWT_SECRET}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
+      SEED_USER_PASSWORD: ${SEED_USER_PASSWORD}
+      NODE_ENV: production
+      UPLOAD_DIR: ./uploads
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - uploads_data:/app/uploads
+
+volumes:
+  mysql_data:
+  uploads_data:
