@@ -14,4 +14,5 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run seed && npm run start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run seed && if [ \"$SEED_DEMO_DATA\" = \"true\" ]; then npm run seed:demo; fi && npm run start"]
+

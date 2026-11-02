@@ -35,7 +35,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-slate-950 text-white">
-        <header className="border-b border-slate-800 bg-slate-900">
+        <header className="border-b border-slate-800 bg-slate-900 text-slate-100">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <Link href="/" className="text-lg font-semibold hover:text-blue-400">
               Channel Q&A

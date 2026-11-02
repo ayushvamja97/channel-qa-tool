@@ -1,3 +1,4 @@
+import QuestionComposer from "@/components/QuestionComposer";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth/jwt";
@@ -57,7 +58,7 @@ export default async function ChannelPage({
           href="/channels"
           className="text-sm text-blue-400 hover:text-blue-300"
         >
-          Ã¢â€ Â Back to channels
+          ← Back to channels
         </Link>
 
         <h1 className="mt-4 text-3xl font-bold">#{channel.name}</h1>
@@ -74,51 +75,7 @@ export default async function ChannelPage({
           <h2 className="mb-4 text-xl font-semibold">Create Post</h2>
 
           {user ? (
-            <form action="/api/posts" method="POST" className="space-y-4">
-              <div>
-                <label
-                  htmlFor="title"
-                  className="mb-2 block text-sm font-medium text-slate-300"
-                >
-                  Post Title
-                </label>
-                <input
-                  id="title"
-                  name="title"
-                  type="text"
-                  placeholder="Ask your programming question"
-                  required
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none focus:border-green-500"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="body"
-                  className="mb-2 block text-sm font-medium text-slate-300"
-                >
-                  Post Body
-                </label>
-                <textarea
-                  id="body"
-                  name="body"
-                  placeholder="Describe your issue or question"
-                  rows={6}
-                  required
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none focus:border-green-500"
-                />
-              </div>
-
-              <input type="hidden" name="channelId" value={channel.id} />
-              <input type="hidden" name="authorId" value={user.userId} />
-
-              <button
-                type="submit"
-                className="rounded-lg bg-green-600 px-5 py-3 font-medium text-white hover:bg-green-500"
-              >
-                Create Post
-              </button>
-            </form>
+            <QuestionComposer channelId={channel.id} />
           ) : (
             <div className="rounded-lg border border-slate-700 bg-slate-950 p-4 text-slate-300">
               You must be logged in to create a post.{" "}
@@ -153,8 +110,8 @@ export default async function ChannelPage({
                   <p className="mt-2 text-slate-300">{post.body}</p>
 
                   <div className="mt-4 text-sm text-slate-400">
-                    By {post.author.displayName} Ã¢â‚¬Â¢ {post._count.replies} replies
-                    {" Ã¢â‚¬Â¢ "}
+                    By {post.author.displayName} • {post._count.replies} replies
+                    {" • "}
                     {post._count.votes} votes
                   </div>
                 </Link>

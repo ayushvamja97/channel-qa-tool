@@ -8,7 +8,7 @@ export default function LoginPage() {
             href="/"
             className="text-sm text-blue-400 hover:text-blue-300"
           >
-            Ã¢â€ Â Back to home
+            ← Back to home
           </Link>
 
           <h1 className="mt-4 text-3xl font-bold">Login</h1>

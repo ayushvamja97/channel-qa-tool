@@ -1,0 +1,20 @@
+services:
+  app:
+    environment:
+      AI_ENABLED: ${AI_ENABLED:-false}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_TEXT_MODEL: ${OPENAI_TEXT_MODEL:-gpt-4.1-mini}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-false}
+      VISION_SERVICE_URL: http://vision:8000
+      VISION_SERVICE_TOKEN: ${VISION_SERVICE_TOKEN}
+  vision:
+    build: ./vision
+    environment:
+      VISION_SERVICE_TOKEN: ${VISION_SERVICE_TOKEN}
+      CLASSIFIER_PATH: ${CLASSIFIER_PATH:-}
+      CLASSIFIER_THRESHOLD: ${CLASSIFIER_THRESHOLD:-0.7}
+    volumes:
+      - ./vision/models:/models:ro
+    # Internal service only: the browser talks through authenticated Next.js routes.
+    restart: unless-stopped

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { prisma } from "../src/lib/prisma";
 
@@ -16,7 +17,6 @@ async function main() {
     where: { email: "admin@example.com" },
     update: {
       displayName: "Admin",
-      passwordHash: adminPassword,
       role: "admin",
     },
     create: {
@@ -31,7 +31,6 @@ async function main() {
     where: { email: "user@example.com" },
     update: {
       displayName: "Ayush User",
-      passwordHash: userPassword,
       role: "user",
     },
     create: {
@@ -68,7 +67,7 @@ async function main() {
     },
   });
 
-  const dockerChannel = await prisma.channel.upsert({
+  await prisma.channel.upsert({
     where: { name: "docker" },
     update: {
       description: "Ask Docker and containerization questions.",

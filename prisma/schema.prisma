@@ -37,7 +37,8 @@ model Post {
   channelId Int
   authorId  Int
   title     String
-  body      String
+  body      String   @db.Text
+  demoKey   String?  @unique
   createdAt DateTime @default(now())
 
   channel     Channel      @relation(fields: [channelId], references: [id])
@@ -45,6 +46,7 @@ model Post {
   replies     Reply[]
   votes       Vote[]
   attachments Attachment[]
+  embedding PostEmbedding?
 }
 
 model Reply {
@@ -52,7 +54,8 @@ model Reply {
   postId        Int
   parentReplyId Int?
   authorId      Int
-  body          String
+  body          String   @db.Text
+  demoKey       String?  @unique
   createdAt     DateTime @default(now())
 
   post        Post         @relation(fields: [postId], references: [id])
@@ -90,4 +93,25 @@ model Attachment {
 
   post  Post?  @relation(fields: [postId], references: [id])
   reply Reply? @relation(fields: [replyId], references: [id])
+  analysis ImageAnalysis?
 }
+
+model PostEmbedding {
+  postId Int @id
+  model String
+  contentHash String
+  vector Json
+  updatedAt DateTime @updatedAt
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model ImageAnalysis {
+  attachmentId Int @id
+  model String
+  vector Json
+  category String?
+  confidence Float?
+  updatedAt DateTime @updatedAt
+  attachment Attachment @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+}
+

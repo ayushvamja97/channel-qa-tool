@@ -93,7 +93,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
     <main className="min-h-screen bg-slate-950 text-white">
       <div className="mx-auto max-w-6xl px-6 py-12">
         <Link href="/" className="text-sm text-blue-400 hover:text-blue-300">
-          Ã¢â€ Â Back to home
+          ← Back to home
         </Link>
 
         <h1 className="mt-4 text-3xl font-bold">Search</h1>
@@ -196,7 +196,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-2xl font-semibold">Results</h2>
               <p className="text-sm text-slate-400">
-                {results.total} total result{results.total === 1 ? "" : "s"} Ã¢â‚¬Â¢ page {results.page}
+                {results.total} total result{results.total === 1 ? "" : "s"} • page {results.page}
               </p>
             </div>
 
@@ -215,7 +215,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                       <h3 className="text-xl font-semibold">{item.displayName}</h3>
                       <p className="mt-2 text-slate-400">{item.email}</p>
                       <div className="mt-3 text-sm text-slate-400">
-                        Role: {item.role} Ã¢â‚¬Â¢ Posts: {item.postCount}
+                        Role: {item.role} • Posts: {item.postCount}
                       </div>
                     </div>
                   ) : (

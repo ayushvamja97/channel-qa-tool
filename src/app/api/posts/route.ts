@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!title || title.trim().length < 3) {
+    if (!title || (title.trim().length < 3 || title.trim().length > 180)) {
       if (isFormSubmission && channelId) {
         return NextResponse.redirect(
           new URL(`/channels/${channelId}`, request.url),
@@ -60,12 +60,12 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json(
-        { error: "Post title must be at least 3 characters." },
+        { error: "Post title must be 3–180 characters." },
         { status: 400 }
       );
     }
 
-    if (!body || body.trim().length < 5) {
+    if (!body || (body.trim().length < 5 || body.trim().length > 10000)) {
       if (isFormSubmission && channelId) {
         return NextResponse.redirect(
           new URL(`/channels/${channelId}`, request.url),
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json(
-        { error: "Post body must be at least 5 characters." },
+        { error: "Post body must be 5–10,000 characters." },
         { status: 400 }
       );
     }

@@ -1,3 +1,5 @@
+import DiscussionSummary from "@/components/DiscussionSummary";
+import ImageInsights from "@/components/ImageInsights";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth/jwt";
 
@@ -95,7 +97,7 @@ function VoteButtons({
   );
 }
 
-function Images({ attachments }: { attachments?: Attachment[] }) {
+function Images({ attachments, signedIn }: { attachments?: Attachment[]; signedIn: boolean }) {
   if (!attachments || attachments.length === 0) {
     return null;
   }
@@ -103,12 +105,11 @@ function Images({ attachments }: { attachments?: Attachment[] }) {
   return (
     <div className="mt-3 flex flex-wrap gap-3">
       {attachments.map((img) => (
-        <img
-          key={img.id}
+        <div key={img.id}><img
           src={img.url}
           alt="attachment"
           className="max-h-60 rounded border border-slate-700"
-        />
+        />{signedIn && <ImageInsights attachmentId={img.id} />}</div>
       ))}
     </div>
   );
@@ -167,11 +168,11 @@ function ReplyCard({
   );
 
   return (
-    <div className={level > 0 ? "ml-6 mt-4 border-l border-slate-700 pl-4" : ""}>
+    <div id={`reply-${reply.id}`} className={level > 0 ? "ml-6 mt-4 border-l border-slate-700 pl-4" : ""}>
       <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
         <p className="text-slate-200">{reply.body}</p>
 
-        <Images attachments={reply.attachments} />
+        <Images attachments={reply.attachments} signedIn={!!userId} />
 
         <div className="mt-3 text-sm text-slate-400">
           By {reply.author.displayName} • {reply.voteScore ?? 0} votes
@@ -265,7 +266,7 @@ export default async function PostPage({
           <h1 className="text-3xl font-bold">{post.title}</h1>
           <p className="mt-3">{post.body}</p>
 
-          <Images attachments={post.attachments} />
+          <Images attachments={post.attachments} signedIn={!!userId} />
 
           <div className="mt-2 text-sm">
             {post.author.displayName} • {post.voteScore ?? 0}
@@ -320,6 +321,8 @@ export default async function PostPage({
         ) : (
           <p className="mt-6 text-sm text-slate-500">Login to reply</p>
         )}
+
+        {userId && <DiscussionSummary postId={post.id} />}
 
         <div className="mt-8">
           <h2 className="mb-4 text-2xl font-semibold">Replies</h2>

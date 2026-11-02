@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
+function secret() {
+  const value = process.env.JWT_SECRET;
+  if (!value || value.length < 32) throw new Error("JWT_SECRET must contain at least 32 characters.");
+  return value;
+}
 
 export type JwtPayload = {
   userId: number;
@@ -9,14 +13,14 @@ export type JwtPayload = {
 };
 
 export function signToken(payload: JwtPayload) {
-  return jwt.sign(payload, JWT_SECRET, {
+  return jwt.sign(payload, secret(), {
     expiresIn: "7d",
   });
 }
 
 export function verifyToken(token: string): JwtPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as JwtPayload;
+    return jwt.verify(token, secret()) as JwtPayload;
   } catch {
     return null;
   }
